@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
+}
+
+body {
+	color: black;
+}
+
+.select-box__control {
+	border-radius: 8px !important;
+	display: flex;
+	flex: 1;
+}
+
+.select-box__control input,
+input.react-time-picker__inputGroup__input {
+	--tw-ring-offset-width: 0 !important;
+}
+
+.select-box__value-container {
+	padding: 4px 8px !important;
+}
+
+.select-box__control:focus-within {
+	border-color: #1e40af !important;
+	box-shadow: 0 0 0 1px #1e40af !important;
+}
+
+.select-box--is-disabled,
+.css-3iigni-container,
+.css-b62m3t-container {
+	display: flex;
+	flex: 1;
+}
+
+.css-16xfy0z-control {
+	border: 1px solid #d1d5db !important;
+	background-color: #f3f4f6 !important;
+	color: #6b7280 !important;
+}
+.react-time-picker {
+	display: flex;
+	flex: 1;
+}
+
+.react-time-picker__wrapper {
+	padding: 8px 8px 8px 16px;
+	border-radius: 8px;
+	border: 1px solid #d1d5db !important;
+}
+
+.react-time-picker--disabled {
+	background-color: #f3f4f6 !important;
+	color: #6b7280 !important;
+	border-radius: 8px;
+}
+input.react-time-picker__inputGroup__input {
+	outline: none !important;
+	border-radius: 4px;
+}
+span.react-time-picker__inputGroup__leadingZero {
+	position: relative !important;
+	z-index: 9 !important;
+}
