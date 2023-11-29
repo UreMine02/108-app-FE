@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TextField from "../base/TextField";
 import RadioGroup from "../base/RadioGroup";
 import * as yup from "yup";
@@ -6,6 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import MultiSelect from "../base/MultiSelect";
 import DatePickerField from "../base/DatePicker/DatePicker";
+import { toast } from "react-toastify";
 // import myData from "../../data.json";
 
 const Schema = yup.object().shape({
@@ -67,9 +68,13 @@ function Form() {
 				"Content-Type": "application/json",
 				// 'Content-Type': 'application/x-www-form-urlencoded',
 			},
+		}).then(() => {
+			toast.success('Gửi dữ liệu thành công')
+		}).catch(() => {
+			toast.error('Gửi dữ liệu thất bại')
 		});
 	};
-
+ 
 	// console.log(myData);
 	return (
 		<div>
