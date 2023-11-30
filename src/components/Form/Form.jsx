@@ -20,6 +20,7 @@ const Schema = yup.object().shape({
 	tienSuBoMe: yup.string().required("Trường bắt buộc"),
 	tienSuAnhChi: yup.string().required("Trường bắt buộc"),
 	thoiGianPhatHien: yup.date(),
+	ngayKhamBenh: yup.date(),
 	dieuTri: yup.string().required("Trường bắt buộc"),
 	nhomThuoc: yup.array().required("Trường bắt buộc"),
 	hba1cLucDau: yup.string().required("Trường bắt buộc"),
@@ -41,6 +42,7 @@ const Schema = yup.object().shape({
 	Protein: yup.string().required("Trường bắt buộc"),
 	sieuAm: yup.string().required("Trường bắt buộc"),
 	khamMat: yup.string().required("Trường bắt buộc"),
+	ghiChu: yup.string().required("Trường bắt buộc"),
 });
 
 function Form() {
@@ -230,6 +232,19 @@ function Form() {
 						label={"Phát hiện ĐTĐ từ bao giờ"}
 						hasTimeInput={false}
 						required={true}
+					/>
+				)}
+			/>
+			<Controller
+				control={control}
+				name='ngayKhamBenh'
+				render={({ field }) => (
+					<DatePickerField
+						selected={field.value}
+						onChange={(date) => field.onChange(date)}
+						label={"Ngày khám bệnh"}
+						hasTimeInput={false}
+						required={false}
 					/>
 				)}
 			/>
@@ -533,12 +548,29 @@ function Form() {
 					/>
 				)}
 			/>
+			
 			<Controller
 				control={control}
 				name='khamMat'
 				render={({ field }) => (
+					<RadioGroup
+						name='Có hay không có bệnh mắt đái tháo đường'
+						options={["Có", "Không"]}
+						value={field.value}
+						onChange={(e) => {
+							field.onChange(e);
+						}}
+						label='Khám mắt đánh giá'
+						required={true}
+					/>
+				)}
+			/>
+			<Controller
+				control={control}
+				name='ghiChu'
+				render={({ field }) => (
 					<TextField
-						label={"Khám mắt đánh giá"}
+						label={"Ghi Chú"}
 						value={field.value}
 						helperText={errors?.ten?.message}
 						onChange={(e) => field.onChange(e.target.value)}
