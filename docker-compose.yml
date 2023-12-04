@@ -1,0 +1,8 @@
+version: "3.3"
+services:
+  web:
+    image: "108_web"
+    build:
+      context: .
+    ports:
+      - 4062:80
