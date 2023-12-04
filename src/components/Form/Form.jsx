@@ -62,7 +62,7 @@ function Form() {
 		newData.tienSuBenh = data.tienSuBenh.map((e) => e.value);
 		console.log(newData, "a");
 
-		fetch("http://localhost:5000/notes/", {
+		fetch("https://api-108.aiotlab-annotation.com/notes", {
 			method: "POST",
 			// mode: "no-cors",
 			body: JSON.stringify(newData),
