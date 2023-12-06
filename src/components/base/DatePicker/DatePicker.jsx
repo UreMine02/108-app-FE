@@ -26,9 +26,9 @@ function DatePickerField({
 	disabled,
 }) {
 	return (
-		<div className='my-1 w-full'>
+		<div className='my-1'>
 			<div className='flex'>
-				<span className={clsx("m-auto mr-4 ", `w-[${width}]`)}>
+				<span className={clsx("m-auto text-left mr-4 ")}>
 					{label}
 					{required && <span className='ml-1 text-red-600'>*</span>}
 				</span>

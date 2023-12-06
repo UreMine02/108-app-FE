@@ -14,7 +14,7 @@ function TextField({
 	value,
 	helperText,
 	onChange,
-	width = "150px",
+	width = "200px",
 	multiline,
 	rowsMax,
 	placeholder,
@@ -28,7 +28,7 @@ function TextField({
 	return (
 		<div className={clsx("my-1 w-full", className)}>
 			<div className='flex'>
-				<span className={clsx("m-auto mr-4 ", `w-[${width}]`)}>
+				<span className={clsx("m-auto mr-2 min-w-[80px] text-left")}>
 					{label}
 					{required && <span className='ml-1 text-red-600'>*</span>}
 				</span>

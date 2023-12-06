@@ -6,6 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import MultiSelect from "../base/MultiSelect";
 import DatePickerField from "../base/DatePicker/DatePicker";
+import CheckboxGroup from "../base/CheckboxGroup";
 import { toast } from "react-toastify";
 // import myData from "../../data.json";
 
@@ -72,103 +73,131 @@ function Form() {
 			},
 		}).then(() => {
 			toast.success('Gửi dữ liệu thành công')
+			setTimeout(() => {
+				window.location.reload();
+			}, 5000);
 		}).catch(() => {
 			toast.error('Gửi dữ liệu thất bại')
 		});
+		// window.location.reload();
 	};
- 
-	// console.log(myData);
+
 	return (
-		<div>
-			<Controller
-				control={control}
-				name='ten'
-				render={({ field }) => (
-					<TextField
-						label={"Họ và tên"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
+		<div className="mx-20">
+			{/* họ tên , tuối */}
+			<div style={{ display: 'flex', flexDirection: 'row', gap: '200px' }}>
+				<div className="w-1/2">
+					<Controller
+						control={control}
+						name='ten'
+						render={({ field }) => (
+							<TextField
+								label={"Họ và tên"}
+								className="w-[500px]"
+								value={field.value}
+								helperText={errors?.ten?.message}
+								onChange={(e) => field.onChange(e.target.value)}
+							/>
+						)}
 					/>
-				)}
-			/>
+				</div>
+				<div className="w-1/2">
+				<Controller
+					control={control}
+					name='tuoi'
+					render={({ field }) => (
+						<TextField
+							label={"Tuổi"}
+							className="w-[300px]"
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>
+				</div>	
+			</div>
+			{/* Giới tính, đc */}
+			<div style={{ display: 'flex', flexDirection: 'row', gap: '200px' }}>
+			<div className="w-1/2">
 			<Controller
-				control={control}
-				name='tuoi'
-				render={({ field }) => (
-					<TextField
-						label={"Tuổi"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>
+					control={control}
+					name='gioiTinh'
+					render={({ field }) => (
+						<RadioGroup
+							name='gioiTinh'
+							options={["Nam", "Nữ"]}
+							value={field.value}
+							onChange={(e) => {
+								field.onChange(e);
+							}}
+							label='Giới tính'
+							required={true}
+						/>
+					)}
+				/>
+			</div>
+			
+			<div className="w-1/2">
 			<Controller
-				control={control}
-				name='gioiTinh'
-				render={({ field }) => (
-					<RadioGroup
-						name='gioiTinh'
-						options={["Nam", "Nữ"]}
-						value={field.value}
-						onChange={(e) => {
-							field.onChange(e);
-						}}
-						label='Giới tính'
-						required={true}
-					/>
-				)}
-			/>
+					control={control}
+					name='diaChi'
+					render={({ field }) => (
+						<RadioGroup
+							name='diaChi'
+							options={["Nông thôn", "Thành thị"]}
+							value={field.value}
+							onChange={(e) => {
+								field.onChange(e);
+							}}
+							label='Địa chỉ'
+							required={true}
+						/>
+					)}
+				/>
+			</div>	
+			</div>
+			{/* Trình độ học vấn + ... */}
+			<div style={{ display: 'flex', flexDirection: 'row', gap: '200px' }}>
+			<div className="w-1/2">
 			<Controller
-				control={control}
-				name='trinDoHocVan'
-				render={({ field }) => (
-					<RadioGroup
-						name='trinDoHocVan'
-						options={["< lớp 12", "12-đại học", "sau đại học"]}
-						value={field.value}
-						onChange={(e) => {
-							field.onChange(e);
-						}}
-						label='Trình độ học vấn'
-						required={true}
-					/>
-				)}
-			/>
+					control={control}
+					name='trinDoHocVan'
+					render={({ field }) => (
+						<RadioGroup
+							name='trinDoHocVan'
+							options={["< lớp 12", "12-đại học", "sau đại học"]}
+							value={field.value}
+							onChange={(e) => {
+								field.onChange(e);
+							}}
+							label='Trình độ học vấn'
+							required={true}
+						/>
+					)}
+				/>
+			</div>
+			<div className="w-1/2">
 			<Controller
-				control={control}
-				name='dungSmartPhone'
-				render={({ field }) => (
-					<RadioGroup
-						name='dungSmartPhone'
-						options={["Có", "Không"]}
-						value={field.value}
-						onChange={(e) => {
-							field.onChange(e);
-						}}
-						label='Biết sử dụng smart phone'
-						required={true}
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='diaChi'
-				render={({ field }) => (
-					<RadioGroup
-						name='diaChi'
-						options={["Nông thôn", "Thành thị"]}
-						value={field.value}
-						onChange={(e) => {
-							field.onChange(e);
-						}}
-						label='Địa chỉ'
-						required={true}
-					/>
-				)}
-			/>
+					control={control}
+					name='dungSmartPhone'
+					render={({ field }) => (
+						<RadioGroup
+							name='dungSmartPhone'
+							options={["Có", "Không"]}
+							value={field.value}
+							onChange={(e) => {
+								field.onChange(e);
+							}}
+							label='Biết sử dụng smart phone'
+							required={true}
+						/>
+					)}
+				/>
+			</div>	
+			</div>
+			{/* Tuần suất khám bệnh */}
 			<Controller
 				control={control}
 				name='tanSuatKham'
@@ -190,64 +219,75 @@ function Form() {
 					/>
 				)}
 			/>
-			<Controller
-				control={control}
-				name='tienSuBoMe'
-				render={({ field }) => (
-					<RadioGroup
+			{/* Tiểu sử */}
+			<div style={{ display: 'flex', flexDirection: 'row', gap:'200px' }}>
+				<div className="w-1/2">
+					<Controller
+						control={control}
 						name='tienSuBoMe'
-						options={["Có", "Không"]}
-						value={field.value}
-						onChange={(e) => {
-							field.onChange(e);
-						}}
-						label='Bố/mẹ đẻ bị ĐTĐ'
-						required={true}
+						render={({ field }) => (
+							<RadioGroup
+								name='tienSuBoMe'
+								options={["Có", "Không"]}
+								value={field.value}
+								onChange={(e) => {
+									field.onChange(e);
+								}}
+								label='Bố/mẹ đẻ bị ĐTĐ'
+								required={true}
+							/>
+						)}
 					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='tienSuAnhChi'
-				render={({ field }) => (
-					<RadioGroup
+				</div>
+				<div className="w-1/2">
+					<Controller
+						control={control}
 						name='tienSuAnhChi'
-						options={["Có", "Không"]}
-						value={field.value}
-						onChange={(e) => {
-							field.onChange(e);
-						}}
-						label='Anh/chị/em bị ĐTĐ'
-						required={true}
+						render={({ field }) => (
+							<RadioGroup
+								name='tienSuAnhChi'
+								options={["Có", "Không"]}
+								value={field.value}
+								onChange={(e) => {
+									field.onChange(e);
+								}}
+								label='Anh/chị/em bị ĐTĐ'
+								required={true}
+							/>
+						)}
 					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='thoiGianPhatHien'
-				render={({ field }) => (
-					<DatePickerField
-						selected={field.value}
-						onChange={(date) => field.onChange(date)}
-						label={"Phát hiện ĐTĐ từ bao giờ"}
-						hasTimeInput={false}
-						required={true}
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='ngayKhamBenh'
-				render={({ field }) => (
-					<DatePickerField
-						selected={field.value}
-						onChange={(date) => field.onChange(date)}
-						label={"Ngày khám bệnh"}
-						hasTimeInput={false}
-						required={false}
-					/>
-				)}
-			/>
+				</div>
+			</div>
+			{/* Thời gian phát hiện */}
+			<div style={{ display: 'flex', flexDirection: 'row', gap:'285px'}}>
+				<Controller
+					control={control}
+					name='thoiGianPhatHien'
+					render={({ field }) => (
+						<DatePickerField
+							selected={field.value}
+							onChange={(date) => field.onChange(date)}
+							label={"Phát hiện ĐTĐ từ bao giờ"}
+							hasTimeInput={false}
+							required={true}
+						/>
+					)}
+				/>
+				<Controller
+					className=''
+					control={control}
+					name='ngayKhamBenh'
+					render={({ field }) => (
+						<DatePickerField
+							selected={field.value}
+							onChange={(date) => field.onChange(date)}
+							label={"Ngày khám bệnh"}
+							hasTimeInput={false}
+							required={false}
+						/>
+					)}
+				/>
+			</div>
 			<Controller
 				control={control}
 				name='dieuTri'
@@ -264,11 +304,12 @@ function Form() {
 					/>
 				)}
 			/>
-			<Controller
-				control={control}
-				name='nhomThuoc'
-				render={({ field }) => (
-					<MultiSelect
+			<div>
+				<Controller
+					control={control}
+					name='nhomThuoc'
+					render={({ field }) => (
+						<CheckboxGroup
 						title={"Nhóm thuốc hạ đường máu"}
 						options={[
 							"Insulin",
@@ -289,282 +330,291 @@ function Form() {
 						}}
 						helperText={errors?.nhomThuoc?.message}
 						required={true}
-						isMulti={true}
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='hba1cLucDau'
-				render={({ field }) => (
-					<TextField
-						label={"HbA1C lúc phát hiện"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='tienSuBenh'
-				render={({ field }) => (
-					<MultiSelect
-						title={"Đã bao giờ được chẩn đoán biến chứng chưa"}
-						options={[
-							"Bàn chân",
-							"Mắt",
-							"Mạch vành",
-							"Bệnh động mạch chi dưới",
-							"Thận",
-							"Thần kinh",
-						].map((e) => ({
-							label: e,
-							value: e,
-						}))}
-						placeholder=''
-						value={field.value}
-						onChange={(newValue) => {
-							field.onChange(newValue);
-						}}
-						helperText={errors?.nhomThuoc?.message}
-						required={true}
-						isMulti={true}
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='Hb'
-				render={({ field }) => (
-					<TextField
-						label={"Hb"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='Hema'
-				render={({ field }) => (
-					<TextField
-						label={"Hematocrit"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>{" "}
-			<Controller
-				control={control}
-				name='Glu'
-				render={({ field }) => (
-					<TextField
-						label={"Glucose"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>{" "}
-			<Controller
-				control={control}
-				name='Hba1c'
-				render={({ field }) => (
-					<TextField
-						label={"HbA1C"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>{" "}
-			<Controller
-				control={control}
-				name='Ure'
-				render={({ field }) => (
-					<TextField
-						label={"Ure"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>{" "}
-			<Controller
-				control={control}
-				name='Creatinin'
-				render={({ field }) => (
-					<TextField
-						label={"Creatinin"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>{" "}
-			<Controller
-				control={control}
-				name='eGFR'
-				render={({ field }) => (
-					<TextField
-						label={"eGFR"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>{" "}
-			<Controller
-				control={control}
-				name='Cholesterol'
-				render={({ field }) => (
-					<TextField
-						label={"Cholesterol"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>{" "}
-			<Controller
-				control={control}
-				name='LDLC'
-				render={({ field }) => (
-					<TextField
-						label={"LDL-C"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>{" "}
-			<Controller
-				control={control}
-				name='HDLC'
-				render={({ field }) => (
-					<TextField
-						label={"HDL-C"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='Trigly'
-				render={({ field }) => (
-					<TextField
-						label={"Triglycerid"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='Na'
-				render={({ field }) => (
-					<TextField
-						label={"Natri"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='K'
-				render={({ field }) => (
-					<TextField
-						label={"Kali"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='Ca'
-				render={({ field }) => (
-					<TextField
-						label={"Calci"}
-						value={field.value}
-						helperText={errors?.ten?.message}
-						onChange={(e) => field.onChange(e.target.value)}
-						type='number'
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='Protein'
-				render={({ field }) => (
-					<RadioGroup
-						name='Protein niệu'
-						options={["Có", "Không"]}
-						value={field.value}
-						onChange={(e) => {
-							field.onChange(e);
-						}}
-						label='Tần suất khám bệnh'
-						required={true}
-					/>
-				)}
-			/>
-			<Controller
-				control={control}
-				name='sieuAm'
-				render={({ field }) => (
-					<RadioGroup
-						name='Kích thước thận'
-						options={["Bình thường", "Nhỏ"]}
-						value={field.value}
-						onChange={(e) => {
-							field.onChange(e);
-						}}
-						label='Tần suất khám bệnh'
-						required={true}
-					/>
-				)}
-			/>
-			
-			<Controller
-				control={control}
-				name='khamMat'
-				render={({ field }) => (
-					<RadioGroup
-						name='Có hay không có bệnh mắt đái tháo đường'
-						options={["Có", "Không"]}
-						value={field.value}
-						onChange={(e) => {
-							field.onChange(e);
-						}}
-						label='Khám mắt đánh giá'
-						required={true}
-					/>
-				)}
-			/>
+						/>
+					)}
+				/>
+				<Controller
+					control={control}
+					name='tienSuBenh'
+					render={({ field }) => (
+						<CheckboxGroup
+							title={"Được chẩn đoán biến chứng:"}
+							options={[
+								"Bàn chân",
+								"Mắt",
+								"Mạch vành",
+								"Bệnh động mạch chi dưới",
+								"Thận",
+								"Thần kinh",
+								"Chưa bao giờ",
+							].map((e) => ({
+								label: e,
+								value: e,
+							}))}
+							placeholder=''
+							value={field.value}
+							onChange={(newValue) => {
+								field.onChange(newValue);
+							}}
+							helperText={errors?.nhomThuoc?.message}
+							required={true}
+							isMulti={true}
+						/>
+					)}
+				/>
+			</div>
+			<div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+				<Controller
+					control={control}
+					name='hba1cLucDau'
+					render={({ field }) => (
+						<TextField
+							label={"HbA1C"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>
+				<Controller
+					control={control}
+					name='Hb'
+					render={({ field }) => (
+						<TextField
+							label={"Hb"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>
+				<Controller
+					control={control}
+					name='Hema'
+					render={({ field }) => (
+						<TextField
+							label={"Hema"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>{" "}
+				<Controller
+					control={control}
+					name='Glu'
+					render={({ field }) => (
+						<TextField
+							label={"Glucose"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>{" "}
+				<Controller
+					control={control}
+					name='Hba1c'
+					render={({ field }) => (
+						<TextField
+							label={"HbA1C"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>{" "}
+			</div>
+			<div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+				<Controller
+					control={control}
+					name='Ure'
+					render={({ field }) => (
+						<TextField
+							label={"Ure"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>{" "}
+				<Controller
+					control={control}
+					name='Creatinin'
+					render={({ field }) => (
+						<TextField
+							label={"Creatinin"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>{" "}
+				<Controller
+					control={control}
+					name='eGFR'
+					render={({ field }) => (
+						<TextField
+							label={"eGFR"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>{" "}
+				<Controller
+					control={control}
+					name='Cholesterol'
+					render={({ field }) => (
+						<TextField
+							label={"Cholesterol"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>{" "}
+				<Controller
+					control={control}
+					name='LDLC'
+					render={({ field }) => (
+						<TextField
+							label={"LDL-C"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>{" "}
+			</div>
+			<div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+				<Controller
+					control={control}
+					name='HDLC'
+					render={({ field }) => (
+						<TextField
+							label={"HDL-C"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>
+				<Controller
+					control={control}
+					name='Trigly'
+					render={({ field }) => (
+						<TextField
+							label={"Trigly"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>
+				<Controller
+					control={control}
+					name='Na'
+					render={({ field }) => (
+						<TextField
+							label={"Natri"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>
+				<Controller
+					control={control}
+					name='K'
+					render={({ field }) => (
+						<TextField
+							label={"Kali"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>
+				<Controller
+					control={control}
+					name='Ca'
+					render={({ field }) => (
+						<TextField
+							label={"Calci"}
+							value={field.value}
+							helperText={errors?.ten?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+						/>
+					)}
+				/>
+			</div>
+			<div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+				<Controller
+					control={control}
+					name='Protein'
+					render={({ field }) => (
+						<RadioGroup
+							name='Protein niệu'
+							options={["Có", "Không"]}
+							value={field.value}
+							onChange={(e) => {
+								field.onChange(e);
+							}}
+							label='Tần suất khám bệnh'
+							required={true}
+						/>
+					)}
+				/>
+				<Controller
+					control={control}
+					name='sieuAm'
+					render={({ field }) => (
+						<RadioGroup
+							name='Kích thước thận'
+							options={["Bình thường", "Nhỏ"]}
+							value={field.value}
+							onChange={(e) => {
+								field.onChange(e);
+							}}
+							label='Kích thước thận'
+							required={true}
+						/>
+					)}
+				/>
+
+				<Controller
+					control={control}
+					name='khamMat'
+					render={({ field }) => (
+						<RadioGroup
+							name='Có hay không có bệnh mắt đái tháo đường'
+							options={["Có", "Không"]}
+							value={field.value}
+							onChange={(e) => {
+								field.onChange(e);
+							}}
+							label='Khám mắt đánh giá'
+							required={true}
+						/>
+					)}
+				/>
+			</div>
 			<Controller
 				control={control}
 				name='ghiChu'
@@ -577,7 +627,16 @@ function Form() {
 					/>
 				)}
 			/>
-			<button onClick={handleSubmit(onSubmit)}>Gửi</button>
+			<div className="mb-4 mt-2">
+				<button
+					onClick={handleSubmit(onSubmit)}
+					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded-full focus:outline-none focus:shadow-outline"
+				>
+					Gửi
+				</button>
+			</div>
+
+
 		</div>
 	);
 }
