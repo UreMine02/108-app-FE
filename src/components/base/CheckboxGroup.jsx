@@ -30,29 +30,29 @@ const CheckboxGroup = ({
                     {title}
                     {required && <span className='ml-1 text-red-600'>*</span>}
                 </span>
-                <div className="checkbox-group flex w-full justify-between">
+                <div className="checkbox-group flex w-full">
                     {options.map((option, index) => (
-                        <>
-                            <label key={index} className="flex">
-                                {option.label}
-                            </label>
+                        <div className="mr-3 flex min-w-[120px]">
                             <input
-                                className="w-5 h-5"
+                                className={`w-5 h-5`}
                                 type="checkbox"
                                 value={option}
                                 checked={checkedValues.map(item => item.value).includes(option.value)}
                                 onChange={(e) => handleCheckboxChange(e.target.checked, option)}
                                 disabled={disabled}
                             />
-                        </>
+                            <label key={index} className="flex ml-2">
+                                {option.label}
+                            </label>
+                        </div>
                     ))}
                 </div>
             </div>
-            {helperText && (
+            {/* {helperText && (
                 <HelperText className='ml-4' style={{ paddingLeft: title ? width : 0 }}>
                     {helperText}
                 </HelperText>
-            )}
+            )} */}
         </div>
     );
 };

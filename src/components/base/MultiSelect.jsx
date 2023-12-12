@@ -37,11 +37,11 @@ const MultiSelect = ({
 					isDisabled={disabled}
 				/>
 			</div>
-			{helperText && (
+			{/* {helperText && (
 				<HelperText className='ml-4' style={{ paddingLeft: title ? width : 0 }}>
 					{helperText}
 				</HelperText>
-			)}
+			)} */}
 		</div>
 	);
 };

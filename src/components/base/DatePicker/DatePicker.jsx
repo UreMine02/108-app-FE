@@ -45,11 +45,11 @@ function DatePickerField({
 					disabled={disabled}
 				/>
 			</div>
-			{helperText && (
+			{/* {helperText && (
 				<HelperText className='ml-4' style={{ paddingLeft: label ? width : 0 }}>
 					{helperText}
 				</HelperText>
-			)}
+			)} */}
 		</div>
 	);
 }

@@ -27,10 +27,11 @@ const Schema = yup.object().shape({
 	hba1cLucDau: yup.string().required("Trường bắt buộc"),
 	tienSuBenh: yup.array().required("Trường bắt buộc"),
 	Hb: yup.number().required("Trường bắt buộc"),
+	HbA: yup.number().required("Trường bắt buộc"),
 	Hema: yup.number().required("Trường bắt buộc"),
 	Glu: yup.number().required("Trường bắt buộc"),
 	Ure: yup.number().required("Trường bắt buộc"),
-	Hba1c: yup.number().required("Trường bắt buộc"),
+	// Hba1c: yup.number().required("Trường bắt buộc"),
 	Creatinin: yup.number().required("Trường bắt buộc"),
 	eGFR: yup.number().required("Trường bắt buộc"),
 	Cholesterol: yup.number().required("Trường bắt buộc"),
@@ -43,7 +44,13 @@ const Schema = yup.object().shape({
 	Protein: yup.string().required("Trường bắt buộc"),
 	sieuAm: yup.string().required("Trường bắt buộc"),
 	khamMat: yup.string().required("Trường bắt buộc"),
-	ghiChu: yup.string().required("Trường bắt buộc"),
+	// ghiChu: yup.string().required("Trường bắt buộc"),
+	thuocHaAp: yup.array().required("Trường bắt buộc"),
+	haMoMau: yup.array().required("Trường bắt buộc"),
+	chieuCao: yup.number().required("Trường bắt buộc"),
+	canNang: yup.number().required("Trường bắt buộc"),
+	BMI: yup.number().required("Trường bắt buộc"),
+	HA: yup.number().required("Trường bắt buộc"),
 });
 
 function Form() {
@@ -72,18 +79,23 @@ function Form() {
 				// 'Content-Type': 'application/x-www-form-urlencoded',
 			},
 		}).then(() => {
-			toast.success('Gửi dữ liệu thành công')
+			window.location.reload();
 			setTimeout(() => {
-				window.location.reload();
-			}, 5000);
+				toast.success('Gửi dữ liệu thành công')
+			}, 2000);
 		}).catch(() => {
-			toast.error('Gửi dữ liệu thất bại')
+			window.location.reload();
+			setTimeout(() => {
+				toast.error('Gửi dữ liệu thất bại')
+			}, 2000);
 		});
 		// window.location.reload();
 	};
 
 	return (
-		<div className="mx-20">
+		<div className="mx-10">
+			<div className="font-bold text-left mt-5">I.	Thông tin hành chính</div>
+			<div className="bg-gray-50 rounded shadow-md px-2 py-4 mt-2">
 			{/* họ tên , tuối */}
 			<div style={{ display: 'flex', flexDirection: 'row', gap: '200px' }}>
 				<div className="w-1/2">
@@ -97,105 +109,111 @@ function Form() {
 								value={field.value}
 								helperText={errors?.ten?.message}
 								onChange={(e) => field.onChange(e.target.value)}
+								required={true}
 							/>
 						)}
 					/>
 				</div>
 				<div className="w-1/2">
-				<Controller
-					control={control}
-					name='tuoi'
-					render={({ field }) => (
-						<TextField
-							label={"Tuổi"}
-							className="w-[300px]"
-							value={field.value}
-							helperText={errors?.ten?.message}
-							onChange={(e) => field.onChange(e.target.value)}
-							type='number'
-						/>
-					)}
-				/>
-				</div>	
+					<Controller
+						control={control}
+						name='tuoi'
+						render={({ field }) => (
+							<TextField
+								label={"Tuổi"}
+								className="w-[170px]"
+								value={field.value}
+								helperText={errors?.tuoi?.message}
+								onChange={(e) => field.onChange(e.target.value)}
+								type='number'
+								required={true}
+							/>
+						)}
+					/>
+				</div>
 			</div>
 			{/* Giới tính, đc */}
 			<div style={{ display: 'flex', flexDirection: 'row', gap: '200px' }}>
-			<div className="w-1/2">
-			<Controller
-					control={control}
-					name='gioiTinh'
-					render={({ field }) => (
-						<RadioGroup
-							name='gioiTinh'
-							options={["Nam", "Nữ"]}
-							value={field.value}
-							onChange={(e) => {
-								field.onChange(e);
-							}}
-							label='Giới tính'
-							required={true}
-						/>
-					)}
-				/>
-			</div>
-			
-			<div className="w-1/2">
-			<Controller
-					control={control}
-					name='diaChi'
-					render={({ field }) => (
-						<RadioGroup
-							name='diaChi'
-							options={["Nông thôn", "Thành thị"]}
-							value={field.value}
-							onChange={(e) => {
-								field.onChange(e);
-							}}
-							label='Địa chỉ'
-							required={true}
-						/>
-					)}
-				/>
-			</div>	
+				<div className="w-1/2">
+					<Controller
+						control={control}
+						name='gioiTinh'
+						render={({ field }) => (
+							<RadioGroup
+								name='gioiTinh'
+								options={["Nam", "Nữ"]}
+								value={field.value}
+								onChange={(e) => {
+									field.onChange(e);
+								}}
+								label='Giới tính'
+								helperText={errors?.gioiTinh?.message}
+								required={true}
+							/>
+						)}
+					/>
+				</div>
+
+				<div className="w-1/2">
+					<Controller
+						control={control}
+						name='diaChi'
+						render={({ field }) => (
+							<RadioGroup
+								name='diaChi'
+								options={["Nông thôn", "Thành thị"]}
+								value={field.value}
+								onChange={(e) => {
+									field.onChange(e);
+								}}
+								helperText={errors?.diaChi?.message}
+								label='Địa chỉ'
+								required={true}
+							/>
+						)}
+					/>
+				</div>
 			</div>
 			{/* Trình độ học vấn + ... */}
 			<div style={{ display: 'flex', flexDirection: 'row', gap: '200px' }}>
-			<div className="w-1/2">
-			<Controller
-					control={control}
-					name='trinDoHocVan'
-					render={({ field }) => (
-						<RadioGroup
-							name='trinDoHocVan'
-							options={["< lớp 12", "12-đại học", "sau đại học"]}
-							value={field.value}
-							onChange={(e) => {
-								field.onChange(e);
-							}}
-							label='Trình độ học vấn'
-							required={true}
-						/>
-					)}
-				/>
-			</div>
-			<div className="w-1/2">
-			<Controller
-					control={control}
-					name='dungSmartPhone'
-					render={({ field }) => (
-						<RadioGroup
-							name='dungSmartPhone'
-							options={["Có", "Không"]}
-							value={field.value}
-							onChange={(e) => {
-								field.onChange(e);
-							}}
-							label='Biết sử dụng smart phone'
-							required={true}
-						/>
-					)}
-				/>
-			</div>	
+				<div className="w-1/2">
+					<Controller
+						control={control}
+						name='trinDoHocVan'
+						render={({ field }) => (
+							<RadioGroup
+								name='trinDoHocVan'
+								options={["< lớp 12", "12-đại học", "sau đại học"]}
+								value={field.value}
+								onChange={(e) => {
+									field.onChange(e);
+								}}
+								label='Trình độ học vấn'
+								required={true}
+								helperText={errors?.trinDoHocVan?.message}
+							/>
+						)}
+					/>
+				</div>
+				<div className="w-1/2">
+					<Controller
+						control={control}
+						name='dungSmartPhone'
+						render={({ field }) => (
+							<RadioGroup
+								name='dungSmartPhone'
+								options={["Có", "Không"]}
+								value={field.value}
+								onChange={(e) => {
+									field.onChange(e);
+								}}
+								label='Biết sử dụng smart phone'
+								required={true}
+								helperText={errors?.dungSmartPhone?.message}
+							/>
+						)}
+					/>
+				</div>
 			</div>
 			{/* Tuần suất khám bệnh */}
 			<Controller
@@ -216,11 +234,17 @@ function Form() {
 						}}
 						label='Tần suất khám bệnh'
 						required={true}
+						helperText={errors?.tanSuatKham?.message}
 					/>
 				)}
 			/>
+			</div>
+
+
+			<div className="font-bold text-left mt-5">II.	Tiền sử</div>
+			<div className="bg-gray-50 rounded shadow-md px-2 py-4 mt-2">
 			{/* Tiểu sử */}
-			<div style={{ display: 'flex', flexDirection: 'row', gap:'200px' }}>
+			<div style={{ display: 'flex', flexDirection: 'row', gap: '200px' }}>
 				<div className="w-1/2">
 					<Controller
 						control={control}
@@ -235,6 +259,7 @@ function Form() {
 								}}
 								label='Bố/mẹ đẻ bị ĐTĐ'
 								required={true}
+								helperText={errors?.tienSuBoMe?.message}
 							/>
 						)}
 					/>
@@ -253,13 +278,14 @@ function Form() {
 								}}
 								label='Anh/chị/em bị ĐTĐ'
 								required={true}
+								helperText={errors?.tienSuAnhChi?.message}
 							/>
 						)}
 					/>
 				</div>
 			</div>
 			{/* Thời gian phát hiện */}
-			<div style={{ display: 'flex', flexDirection: 'row', gap:'285px'}}>
+			<div style={{ display: 'flex', flexDirection: 'row' }}>
 				<Controller
 					control={control}
 					name='thoiGianPhatHien'
@@ -270,11 +296,11 @@ function Form() {
 							label={"Phát hiện ĐTĐ từ bao giờ"}
 							hasTimeInput={false}
 							required={true}
+							helperText={errors?.thoiGianPhatHien?.message}
 						/>
 					)}
 				/>
-				<Controller
-					className=''
+				<div className="ml-4"><Controller
 					control={control}
 					name='ngayKhamBenh'
 					render={({ field }) => (
@@ -283,11 +309,120 @@ function Form() {
 							onChange={(date) => field.onChange(date)}
 							label={"Ngày khám bệnh"}
 							hasTimeInput={false}
-							required={false}
+							required={true}
+							helperText={errors?.ngayKhamBenh?.message}
+						/>
+					)}
+				/></div>
+				<div className="ml-4"><Controller
+					control={control}
+					name='hba1cLucDau'
+					render={({ field }) => (
+						<TextField
+							label={"HbA1C lúc phát hiện"}
+							value={field.value}
+							helperText={errors?.hba1cLucDau?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+							required={true}
+						/>
+					)}
+				/></div>
+			</div>
+
+			<Controller
+				control={control}
+				name='tienSuBenh'
+				render={({ field }) => (
+					<CheckboxGroup
+						title={"Đã được chẩn đoán biến chứng:"}
+						options={[
+							"Bàn chân",
+							"Mắt",
+							"Mạch vành",
+							"Bệnh động mạch chi dưới",
+							"Thận",
+							"Thần kinh",
+							"Chưa bao giờ",
+						].map((e) => ({
+							label: e,
+							value: e,
+						}))}
+						placeholder=''
+						value={field.value}
+						onChange={(newValue) => {
+							field.onChange(newValue);
+						}}
+						helperText={errors?.tienSuBenh?.message}
+						required={true}
+						isMulti={true}
+					/>
+				)}
+			/>
+			</div>
+
+
+			<div className="font-bold text-left mt-5">III.	Thông tin thu thập</div>
+			<div className="bg-gray-50 rounded shadow-md px-2 py-4 my-2">
+			<div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+				<Controller
+					control={control}
+					name='chieuCao'
+					render={({ field }) => (
+						<TextField
+							label={"Chiều cao (cm)"}
+							value={field.value}
+							helperText={errors?.chieuCao?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+							required={true}
 						/>
 					)}
 				/>
+				<Controller
+					control={control}
+					name='canNang'
+					render={({ field }) => (
+						<TextField
+							label={"Cân nặng (kg)"}
+							value={field.value}
+							helperText={errors?.canNang?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+							required={true}
+						/>
+					)}
+				/>{" "}
+				<Controller
+					control={control}
+					name='BMI'
+					render={({ field }) => (
+						<TextField
+							label={"BMI"}
+							value={field.value}
+							helperText={errors?.BMI?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+							required={true}
+						/>
+					)}
+				/>{" "}
+				<Controller
+					control={control}
+					name='HA'
+					render={({ field }) => (
+						<TextField
+							label={"Huyết áp"}
+							value={field.value}
+							helperText={errors?.HA?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+							required={true}
+						/>
+					)}
+				/>{" "}
 			</div>
+
 			<Controller
 				control={control}
 				name='dieuTri'
@@ -301,6 +436,7 @@ function Form() {
 						}}
 						label='Điều trị thuốc hạ đường máu'
 						required={true}
+						helperText={errors?.dieuTri?.message}
 					/>
 				)}
 			/>
@@ -310,43 +446,15 @@ function Form() {
 					name='nhomThuoc'
 					render={({ field }) => (
 						<CheckboxGroup
-						title={"Nhóm thuốc hạ đường máu"}
-						options={[
-							"Insulin",
-							"SU",
-							"Metformin",
-							"ức chế DPP4",
-							"GLP1",
-							"ức chế SGLT2",
-							"Acarbose",
-						].map((e) => ({
-							label: e,
-							value: e,
-						}))}
-						placeholder=''
-						value={field.value}
-						onChange={(newValue) => {
-							field.onChange(newValue);
-						}}
-						helperText={errors?.nhomThuoc?.message}
-						required={true}
-						/>
-					)}
-				/>
-				<Controller
-					control={control}
-					name='tienSuBenh'
-					render={({ field }) => (
-						<CheckboxGroup
-							title={"Được chẩn đoán biến chứng:"}
+							title={"Nhóm thuốc hạ đường máu"}
 							options={[
-								"Bàn chân",
-								"Mắt",
-								"Mạch vành",
-								"Bệnh động mạch chi dưới",
-								"Thận",
-								"Thần kinh",
-								"Chưa bao giờ",
+								"Insulin",
+								"SU",
+								"Metformin",
+								"GLP1",
+								"ức chế SGLT2",
+								"Acarbose",
+								"ức chế DPP4",
 							].map((e) => ({
 								label: e,
 								value: e,
@@ -358,25 +466,64 @@ function Form() {
 							}}
 							helperText={errors?.nhomThuoc?.message}
 							required={true}
+						/>
+					)}
+				/>
+
+				<Controller
+					control={control}
+					name='thuocHaAp'
+					render={({ field }) => (
+						<CheckboxGroup
+							title={"Nhóm thuốc hạ áp:"}
+							options={[
+								"Chẹn calci",
+								"Chẹn beta",
+								"UC thụ thể",
+								"Nhóm khác",
+								"UC men chuyển",
+							].map((e) => ({
+								label: e,
+								value: e,
+							}))}
+							placeholder=''
+							value={field.value}
+							onChange={(newValue) => {
+								field.onChange(newValue);
+							}}
+							helperText={errors?.thuocHaAp?.message}
+							required={true}
+							isMulti={true}
+						/>
+					)}
+				/>
+				<Controller
+					control={control}
+					name='haMoMau'
+					render={({ field }) => (
+						<CheckboxGroup
+							title={"Nhóm thuốc hạ mỡ máu:"}
+							options={[
+								"Statin",
+								"Fibrat",
+							].map((e) => ({
+								label: e,
+								value: e,
+							}))}
+							placeholder=''
+							value={field.value}
+							onChange={(newValue) => {
+								field.onChange(newValue);
+							}}
+							helperText={errors?.haMoMau?.message}
+							required={true}
 							isMulti={true}
 						/>
 					)}
 				/>
 			</div>
+
 			<div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
-				<Controller
-					control={control}
-					name='hba1cLucDau'
-					render={({ field }) => (
-						<TextField
-							label={"HbA1C"}
-							value={field.value}
-							helperText={errors?.ten?.message}
-							onChange={(e) => field.onChange(e.target.value)}
-							type='number'
-						/>
-					)}
-				/>
 				<Controller
 					control={control}
 					name='Hb'
@@ -384,9 +531,10 @@ function Form() {
 						<TextField
 							label={"Hb"}
 							value={field.value}
-							helperText={errors?.ten?.message}
+							helperText={errors?.Hb?.message}
 							onChange={(e) => field.onChange(e.target.value)}
 							type='number'
+							required={true}
 						/>
 					)}
 				/>
@@ -395,37 +543,12 @@ function Form() {
 					name='Hema'
 					render={({ field }) => (
 						<TextField
-							label={"Hema"}
+							label={"Hematocrit"}
 							value={field.value}
-							helperText={errors?.ten?.message}
+							helperText={errors?.Hema?.message}
 							onChange={(e) => field.onChange(e.target.value)}
 							type='number'
-						/>
-					)}
-				/>{" "}
-				<Controller
-					control={control}
-					name='Glu'
-					render={({ field }) => (
-						<TextField
-							label={"Glucose"}
-							value={field.value}
-							helperText={errors?.ten?.message}
-							onChange={(e) => field.onChange(e.target.value)}
-							type='number'
-						/>
-					)}
-				/>{" "}
-				<Controller
-					control={control}
-					name='Hba1c'
-					render={({ field }) => (
-						<TextField
-							label={"HbA1C"}
-							value={field.value}
-							helperText={errors?.ten?.message}
-							onChange={(e) => field.onChange(e.target.value)}
-							type='number'
+							required={true}
 						/>
 					)}
 				/>{" "}
@@ -433,14 +556,43 @@ function Form() {
 			<div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
 				<Controller
 					control={control}
+					name='HbA'
+					render={({ field }) => (
+						<TextField
+							label={"HbA1C"}
+							value={field.value}
+							helperText={errors?.HbA?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+							required={true}
+						/>
+					)}
+				/>
+				<Controller
+					control={control}
+					name='Glu'
+					render={({ field }) => (
+						<TextField
+							label={"Glucose"}
+							value={field.value}
+							helperText={errors?.Glu?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+							required={true}
+						/>
+					)}
+				/>{" "}
+				<Controller
+					control={control}
 					name='Ure'
 					render={({ field }) => (
 						<TextField
 							label={"Ure"}
 							value={field.value}
-							helperText={errors?.ten?.message}
+							helperText={errors?.Ure?.message}
 							onChange={(e) => field.onChange(e.target.value)}
 							type='number'
+							required={true}
 						/>
 					)}
 				/>{" "}
@@ -451,9 +603,10 @@ function Form() {
 						<TextField
 							label={"Creatinin"}
 							value={field.value}
-							helperText={errors?.ten?.message}
+							helperText={errors?.Creatinin?.message}
 							onChange={(e) => field.onChange(e.target.value)}
 							type='number'
+							required={true}
 						/>
 					)}
 				/>{" "}
@@ -464,9 +617,10 @@ function Form() {
 						<TextField
 							label={"eGFR"}
 							value={field.value}
-							helperText={errors?.ten?.message}
+							helperText={errors?.eGFR?.message}
 							onChange={(e) => field.onChange(e.target.value)}
 							type='number'
+							required={true}
 						/>
 					)}
 				/>{" "}
@@ -477,22 +631,10 @@ function Form() {
 						<TextField
 							label={"Cholesterol"}
 							value={field.value}
-							helperText={errors?.ten?.message}
+							helperText={errors?.Cholesterol?.message}
 							onChange={(e) => field.onChange(e.target.value)}
 							type='number'
-						/>
-					)}
-				/>{" "}
-				<Controller
-					control={control}
-					name='LDLC'
-					render={({ field }) => (
-						<TextField
-							label={"LDL-C"}
-							value={field.value}
-							helperText={errors?.ten?.message}
-							onChange={(e) => field.onChange(e.target.value)}
-							type='number'
+							required={true}
 						/>
 					)}
 				/>{" "}
@@ -500,14 +642,29 @@ function Form() {
 			<div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
 				<Controller
 					control={control}
+					name='LDLC'
+					render={({ field }) => (
+						<TextField
+							label={"LDL-C"}
+							value={field.value}
+							helperText={errors?.LDLC?.message}
+							onChange={(e) => field.onChange(e.target.value)}
+							type='number'
+							required={true}
+						/>
+					)}
+				/>{" "}
+				<Controller
+					control={control}
 					name='HDLC'
 					render={({ field }) => (
 						<TextField
 							label={"HDL-C"}
 							value={field.value}
-							helperText={errors?.ten?.message}
+							helperText={errors?.HDLC?.message}
 							onChange={(e) => field.onChange(e.target.value)}
 							type='number'
+							required={true}
 						/>
 					)}
 				/>
@@ -518,9 +675,10 @@ function Form() {
 						<TextField
 							label={"Trigly"}
 							value={field.value}
-							helperText={errors?.ten?.message}
+							helperText={errors?.Trigly?.message}
 							onChange={(e) => field.onChange(e.target.value)}
 							type='number'
+							required={true}
 						/>
 					)}
 				/>
@@ -531,9 +689,10 @@ function Form() {
 						<TextField
 							label={"Natri"}
 							value={field.value}
-							helperText={errors?.ten?.message}
+							helperText={errors?.Na?.message}
 							onChange={(e) => field.onChange(e.target.value)}
 							type='number'
+							required={true}
 						/>
 					)}
 				/>
@@ -544,9 +703,10 @@ function Form() {
 						<TextField
 							label={"Kali"}
 							value={field.value}
-							helperText={errors?.ten?.message}
+							helperText={errors?.K?.message}
 							onChange={(e) => field.onChange(e.target.value)}
 							type='number'
+							required={true}
 						/>
 					)}
 				/>
@@ -557,9 +717,10 @@ function Form() {
 						<TextField
 							label={"Calci"}
 							value={field.value}
-							helperText={errors?.ten?.message}
+							helperText={errors?.Ca?.message}
 							onChange={(e) => field.onChange(e.target.value)}
 							type='number'
+							required={true}
 						/>
 					)}
 				/>
@@ -577,6 +738,7 @@ function Form() {
 								field.onChange(e);
 							}}
 							label='Tần suất khám bệnh'
+							helperText={errors?.Protein?.message}
 							required={true}
 						/>
 					)}
@@ -593,6 +755,7 @@ function Form() {
 								field.onChange(e);
 							}}
 							label='Kích thước thận'
+							helperText={errors?.sieuAm?.message}
 							required={true}
 						/>
 					)}
@@ -610,6 +773,7 @@ function Form() {
 								field.onChange(e);
 							}}
 							label='Khám mắt đánh giá'
+							helperText={errors?.khamMat?.message}
 							required={true}
 						/>
 					)}
@@ -622,12 +786,13 @@ function Form() {
 					<TextField
 						label={"Ghi Chú"}
 						value={field.value}
-						helperText={errors?.ten?.message}
+						helperText={errors?.ghiChu?.message}
 						onChange={(e) => field.onChange(e.target.value)}
 					/>
 				)}
 			/>
-			<div className="mb-4 mt-2">
+			</div>
+			<div className="mt-5 mb-12">
 				<button
 					onClick={handleSubmit(onSubmit)}
 					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-10 rounded-full focus:outline-none focus:shadow-outline"
@@ -635,8 +800,6 @@ function Form() {
 					Gửi
 				</button>
 			</div>
-
-
 		</div>
 	);
 }
