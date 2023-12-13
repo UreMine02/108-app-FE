@@ -480,8 +480,8 @@ function Form() {
 								"Chẹn calci",
 								"Chẹn beta",
 								"UC thụ thể",
-								"Nhóm khác",
 								"UC men chuyển",
+								"Nhóm khác",
 							].map((e) => ({
 								label: e,
 								value: e,
