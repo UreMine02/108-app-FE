@@ -11,46 +11,48 @@ import { toast } from "react-toastify";
 // import myData from "../../data.json";
 
 const Schema = yup.object().shape({
-  ten: yup.string().required("Trường bắt buộc"),
-  tuoi: yup.number().required("Trường bắt buộc"),
-  gioiTinh: yup.string().required("Trường bắt buộc"),
-  trinDoHocVan: yup.string().required("Trường bắt buộc"),
-  dungSmartPhone: yup.string().required("Trường bắt buộc"),
-  diaChi: yup.string().required("Trường bắt buộc"),
-  tanSuatKham: yup.string().required("Trường bắt buộc"),
-  tienSuBoMe: yup.string().required("Trường bắt buộc"),
-  tienSuAnhChi: yup.string().required("Trường bắt buộc"),
-  thoiGianPhatHien: yup.date(),
-  ngayKhamBenh: yup.date(),
-  dieuTri: yup.string().required("Trường bắt buộc"),
-  nhomThuoc: yup.array().required("Trường bắt buộc"),
-  hba1cLucDau: yup.string().required("Trường bắt buộc"),
-  tienSuBenh: yup.array().required("Trường bắt buộc"),
-  Hb: yup.number().required("Trường bắt buộc"),
-  HbA: yup.number().required("Trường bắt buộc"),
-  Hema: yup.number().required("Trường bắt buộc"),
-  Glu: yup.number().required("Trường bắt buộc"),
-  Ure: yup.number().required("Trường bắt buộc"),
-  // Hba1c: yup.number().required("Trường bắt buộc"),
-  Creatinin: yup.number().required("Trường bắt buộc"),
-  eGFR: yup.number().required("Trường bắt buộc"),
-  Cholesterol: yup.number().required("Trường bắt buộc"),
-  LDLC: yup.number().required("Trường bắt buộc"),
-  HDLC: yup.number().required("Trường bắt buộc"),
-  Trigly: yup.number().required("Trường bắt buộc"),
-  Na: yup.number().required("Trường bắt buộc"),
-  K: yup.number().required("Trường bắt buộc"),
-  Ca: yup.number().required("Trường bắt buộc"),
-  Protein: yup.string().required("Trường bắt buộc"),
-  sieuAm: yup.string().required("Trường bắt buộc"),
-  khamMat: yup.string().required("Trường bắt buộc"),
-  // ghiChu: yup.string().required("Trường bắt buộc"),
-  thuocHaAp: yup.array().required("Trường bắt buộc"),
-  haMoMau: yup.array().required("Trường bắt buộc"),
-  chieuCao: yup.number().required("Trường bắt buộc"),
-  canNang: yup.number().required("Trường bắt buộc"),
-  BMI: yup.number().required("Trường bắt buộc"),
-  HA: yup.number().required("Trường bắt buộc"),
+  //   ten: yup.string().required("Trường bắt buộc"),
+  //   tuoi: yup.number().required("Trường bắt buộc"),
+  //   gioiTinh: yup.string().required("Trường bắt buộc"),
+  //   trinDoHocVan: yup.string().required("Trường bắt buộc"),
+  //   dungSmartPhone: yup.string().required("Trường bắt buộc"),
+  //   diaChi: yup.string().required("Trường bắt buộc"),
+  //   tanSuatKham: yup.string().required("Trường bắt buộc"),
+  //   tienSuBoMe: yup.string().required("Trường bắt buộc"),
+  //   tienSuAnhChi: yup.string().required("Trường bắt buộc"),
+  //   thoiGianPhatHien: yup.date(),
+  //   ngayKhamBenh: yup.date(),
+  //   dieuTri: yup.string().required("Trường bắt buộc"),
+  //   nhomThuoc: yup.array().required("Trường bắt buộc"),
+  //   hba1cLucDau: yup.string().required("Trường bắt buộc"),
+  //   tienSuBenh: yup.array().required("Trường bắt buộc"),
+  //   Hb: yup.number().required("Trường bắt buộc"),
+  //   HbA: yup.number().required("Trường bắt buộc"),
+  //   Hema: yup.number().required("Trường bắt buộc"),
+  //   Glu: yup.number().required("Trường bắt buộc"),
+  //   Ure: yup.number().required("Trường bắt buộc"),
+  //   // Hba1c: yup.number().required("Trường bắt buộc"),
+  //   Creatinin: yup.number().required("Trường bắt buộc"),
+  //   eGFR: yup.number().required("Trường bắt buộc"),
+  //   Cholesterol: yup.number().required("Trường bắt buộc"),
+  //   LDLC: yup.number().required("Trường bắt buộc"),
+  //   HDLC: yup.number().required("Trường bắt buộc"),
+  //   Trigly: yup.number().required("Trường bắt buộc"),
+  //   Na: yup.number().required("Trường bắt buộc"),
+  //   K: yup.number().required("Trường bắt buộc"),
+  //   Ca: yup.number().required("Trường bắt buộc"),
+  //   Protein: yup.string().required("Trường bắt buộc"),
+  //   sieuAm: yup.string().required("Trường bắt buộc"),
+  //   khamMat: yup.string().required("Trường bắt buộc"),
+  //   // ghiChu: yup.string().required("Trường bắt buộc"),
+  //   thuocHaAp: yup.array().required("Trường bắt buộc"),
+  //   haMoMau: yup.array().required("Trường bắt buộc"),
+  //   chieuCao: yup.number().required("Trường bắt buộc"),
+  //   canNang: yup.number().required("Trường bắt buộc"),
+  //   BMI: yup.number().required("Trường bắt buộc"),
+  //   HA: yup.number().required("Trường bắt buộc"),
+  //   HATT: yup.string().required("Trường bắt buộc"),
+  //   HATTr: yup.string().required("Trường bắt buộc"),
 });
 
 function Form() {
@@ -59,7 +61,6 @@ function Form() {
     formState: { errors },
     handleSubmit,
   } = useForm({ resolver: yupResolver(Schema) });
-
   const onSubmit = data => {
     console.log(data);
     let newData = JSON.parse(JSON.stringify(data));
@@ -418,10 +419,8 @@ function Form() {
               <TextField
                 label={"Huyết áp - HATT"}
                 value={field.value}
-                helperText={errors?.HA?.message}
                 onChange={e => field.onChange(e.target.value)}
                 type="number"
-                required={true}
               />
             )}
           />{" "}
@@ -432,7 +431,6 @@ function Form() {
               <TextField
                 label={"Huyết áp - HATTr"}
                 value={field.value}
-                helperText={errors?.HA?.message}
                 onChange={e => field.onChange(e.target.value)}
                 type="number"
                 required={true}
@@ -741,23 +739,6 @@ function Form() {
           />
         </div>
         <div style={{ display: "flex", flexDirection: "row", gap: "20px" }}>
-          <Controller
-            control={control}
-            name="Protein"
-            render={({ field }) => (
-              <RadioGroup
-                name="Protein niệu"
-                options={["Có", "Không"]}
-                value={field.value}
-                onChange={e => {
-                  field.onChange(e);
-                }}
-                label="Tần suất khám bệnh"
-                helperText={errors?.Protein?.message}
-                required={true}
-              />
-            )}
-          />
           <Controller
             control={control}
             name="sieuAm"
