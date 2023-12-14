@@ -40,7 +40,7 @@ const Schema = yup.object().shape({
   Ca: yup.number().required("Trường bắt buộc"),
   sieuAm: yup.string().required("Trường bắt buộc"),
   khamMat: yup.string().required("Trường bắt buộc"),
-  ghiChu: yup.string().required("Trường bắt buộc"),
+  ghiChu: yup.string(),
   thuocHaAp: yup.array().required("Trường bắt buộc"),
   haMoMau: yup.array().required("Trường bắt buộc"),
   chieuCao: yup.number().required("Trường bắt buộc"),
