@@ -1,58 +1,54 @@
-import React, { useEffect } from "react";
+import React from "react";
 import TextField from "../base/TextField";
 import RadioGroup from "../base/RadioGroup";
 import * as yup from "yup";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import MultiSelect from "../base/MultiSelect";
 import DatePickerField from "../base/DatePicker/DatePicker";
 import CheckboxGroup from "../base/CheckboxGroup";
 import { toast } from "react-toastify";
-// import myData from "../../data.json";
 
 const Schema = yup.object().shape({
-  //   ten: yup.string().required("Trường bắt buộc"),
-  //   tuoi: yup.number().required("Trường bắt buộc"),
-  //   gioiTinh: yup.string().required("Trường bắt buộc"),
-  //   trinDoHocVan: yup.string().required("Trường bắt buộc"),
-  //   dungSmartPhone: yup.string().required("Trường bắt buộc"),
-  //   diaChi: yup.string().required("Trường bắt buộc"),
-  //   tanSuatKham: yup.string().required("Trường bắt buộc"),
-  //   tienSuBoMe: yup.string().required("Trường bắt buộc"),
-  //   tienSuAnhChi: yup.string().required("Trường bắt buộc"),
-  //   thoiGianPhatHien: yup.date(),
-  //   ngayKhamBenh: yup.date(),
-  //   dieuTri: yup.string().required("Trường bắt buộc"),
-  //   nhomThuoc: yup.array().required("Trường bắt buộc"),
-  //   hba1cLucDau: yup.string().required("Trường bắt buộc"),
-  //   tienSuBenh: yup.array().required("Trường bắt buộc"),
-  //   Hb: yup.number().required("Trường bắt buộc"),
-  //   HbA: yup.number().required("Trường bắt buộc"),
-  //   Hema: yup.number().required("Trường bắt buộc"),
-  //   Glu: yup.number().required("Trường bắt buộc"),
-  //   Ure: yup.number().required("Trường bắt buộc"),
-  //   // Hba1c: yup.number().required("Trường bắt buộc"),
-  //   Creatinin: yup.number().required("Trường bắt buộc"),
-  //   eGFR: yup.number().required("Trường bắt buộc"),
-  //   Cholesterol: yup.number().required("Trường bắt buộc"),
-  //   LDLC: yup.number().required("Trường bắt buộc"),
-  //   HDLC: yup.number().required("Trường bắt buộc"),
-  //   Trigly: yup.number().required("Trường bắt buộc"),
-  //   Na: yup.number().required("Trường bắt buộc"),
-  //   K: yup.number().required("Trường bắt buộc"),
-  //   Ca: yup.number().required("Trường bắt buộc"),
-  //   Protein: yup.string().required("Trường bắt buộc"),
-  //   sieuAm: yup.string().required("Trường bắt buộc"),
-  //   khamMat: yup.string().required("Trường bắt buộc"),
-  //   // ghiChu: yup.string().required("Trường bắt buộc"),
-  //   thuocHaAp: yup.array().required("Trường bắt buộc"),
-  //   haMoMau: yup.array().required("Trường bắt buộc"),
-  //   chieuCao: yup.number().required("Trường bắt buộc"),
-  //   canNang: yup.number().required("Trường bắt buộc"),
-  //   BMI: yup.number().required("Trường bắt buộc"),
-  //   HA: yup.number().required("Trường bắt buộc"),
-  //   HATT: yup.string().required("Trường bắt buộc"),
-  //   HATTr: yup.string().required("Trường bắt buộc"),
+  ten: yup.string().required("Trường bắt buộc"),
+  tuoi: yup.number().required("Trường bắt buộc"),
+  gioiTinh: yup.string().required("Trường bắt buộc"),
+  trinDoHocVan: yup.string().required("Trường bắt buộc"),
+  dungSmartPhone: yup.string().required("Trường bắt buộc"),
+  diaChi: yup.string().required("Trường bắt buộc"),
+  tanSuatKham: yup.string().required("Trường bắt buộc"),
+  tienSuBoMe: yup.string().required("Trường bắt buộc"),
+  tienSuAnhChi: yup.string().required("Trường bắt buộc"),
+  thoiGianPhatHien: yup.date(),
+  ngayKhamBenh: yup.date(),
+  dieuTri: yup.string().required("Trường bắt buộc"),
+  nhomThuoc: yup.array().required("Trường bắt buộc"),
+  hba1cLucDau: yup.string().required("Trường bắt buộc"),
+  tienSuBenh: yup.array().required("Trường bắt buộc"),
+  Hb: yup.number().required("Trường bắt buộc"),
+  HbA: yup.number().required("Trường bắt buộc"),
+  Hema: yup.number().required("Trường bắt buộc"),
+  Glu: yup.number().required("Trường bắt buộc"),
+  Ure: yup.number().required("Trường bắt buộc"),
+  Creatinin: yup.number().required("Trường bắt buộc"),
+  eGFR: yup.number().required("Trường bắt buộc"),
+  Cholesterol: yup.number().required("Trường bắt buộc"),
+  LDLC: yup.number().required("Trường bắt buộc"),
+  HDLC: yup.number().required("Trường bắt buộc"),
+  Trigly: yup.number().required("Trường bắt buộc"),
+  Na: yup.number().required("Trường bắt buộc"),
+  K: yup.number().required("Trường bắt buộc"),
+  Ca: yup.number().required("Trường bắt buộc"),
+  sieuAm: yup.string().required("Trường bắt buộc"),
+  khamMat: yup.string().required("Trường bắt buộc"),
+  ghiChu: yup.string().required("Trường bắt buộc"),
+  thuocHaAp: yup.array().required("Trường bắt buộc"),
+  haMoMau: yup.array().required("Trường bắt buộc"),
+  chieuCao: yup.number().required("Trường bắt buộc"),
+  canNang: yup.number().required("Trường bắt buộc"),
+  BMI: yup.number().required("Trường bắt buộc"),
+  HATT: yup.string().required("Trường bắt buộc"),
+  HATTr: yup.string().required("Trường bắt buộc"),
+  nuoctieu_albumin: yup.string().required("Trường bắt buộc"),
 });
 
 function Form() {
@@ -60,12 +56,16 @@ function Form() {
     control,
     formState: { errors },
     handleSubmit,
+    setValue
   } = useForm({ resolver: yupResolver(Schema) });
   const onSubmit = data => {
     console.log(data);
     let newData = JSON.parse(JSON.stringify(data));
     newData.thoiGianPhatHien = new Date(
       data.thoiGianPhatHien
+    ).toLocaleDateString("vi");
+    newData.ngayKhamBenh = new Date(
+      data.ngayKhamBenh
     ).toLocaleDateString("vi");
     newData.nhomThuoc = data.nhomThuoc.map(e => e.value);
     newData.tienSuBenh = data.tienSuBenh.map(e => e.value);
@@ -81,18 +81,21 @@ function Form() {
       },
     })
       .then(() => {
-        window.location.reload();
-        setTimeout(() => {
-          toast.success("Gửi dữ liệu thành công");
-        }, 2000);
+        toast.success("Gửi dữ liệu thành công");
+        const fieldsToReset = ["ten", "tuoi", "gioiTinh", "trinDoHocVan", "dungSmartPhone",
+          "diaChi", "tanSuatKham", "tienSuBoMe", "tienSuAnhChi", "thoiGianPhatHien",
+          "ngayKhamBenh", "dieuTri", "nhomThuoc", "hba1cLucDau", "tienSuBenh",
+          "Hb", "HbA", "Hema", "Glu", "Ure", "Creatinin", "eGFR", "Cholesterol", "LDLC",
+          "HDLC", "Trigly", "Na", "K", "Ca", "sieuAm", "khamMat", "ghiChu", "thuocHaAp", "haMoMau",
+          "chieuCao", "canNang", "BMI", "HATT", "HATTr", "nuoctieu_albumin",
+        ];
+        fieldsToReset.forEach(fieldName => {
+          setValue(fieldName, "");
+        });
       })
       .catch(() => {
-        window.location.reload();
-        setTimeout(() => {
-          toast.error("Gửi dữ liệu thất bại");
-        }, 2000);
+        toast.error("Gửi dữ liệu thất bại");
       });
-    // window.location.reload();
   };
 
   return (
@@ -421,6 +424,7 @@ function Form() {
                 value={field.value}
                 onChange={e => field.onChange(e.target.value)}
                 type="number"
+                helperText={errors?.HATT?.message}
               />
             )}
           />{" "}
@@ -434,6 +438,7 @@ function Form() {
                 onChange={e => field.onChange(e.target.value)}
                 type="number"
                 required={true}
+                helperText={errors?.HATTr?.message}
               />
             )}
           />{" "}
@@ -787,7 +792,7 @@ function Form() {
                 onChange={e => {
                   field.onChange(e);
                 }}
-                helperText={errors?.sieuAm?.message}
+                helperText={errors?.nuoctieu_albumin?.message}
                 required={true}
               />
             )}
