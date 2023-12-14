@@ -49,6 +49,7 @@ const Schema = yup.object().shape({
   HATT: yup.string().required("Trường bắt buộc"),
   HATTr: yup.string().required("Trường bắt buộc"),
   nuoctieu_albumin: yup.string().required("Trường bắt buộc"),
+  maBenhNhan: yup.string().required("Trường bắt buộc"),
 });
 
 function Form() {
@@ -102,6 +103,21 @@ function Form() {
     <div className="mx-10">
       <div className="font-bold text-left mt-5">I. Thông tin hành chính</div>
       <div className="bg-gray-50 rounded shadow-md px-2 py-4 mt-2">
+        <div className="w-1/3">
+        <Controller
+            control={control}
+            name="maBenhNhan"
+            render={({ field }) => (
+              <TextField
+                label={"Mã bệnh nhân"}
+                value={field.value}
+                helperText={errors?.maBenhNhan?.message}
+                onChange={e => field.onChange(e.target.value)}
+                required={true}
+              />
+            )}
+          />
+        </div>
         {/* họ tên , tuối */}
         <div style={{ display: "flex", flexDirection: "row", gap: "200px" }}>
           <div className="w-1/2">
