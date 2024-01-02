@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "../base/TextField";
 import RadioGroup from "../base/RadioGroup";
 import * as yup from "yup";
@@ -22,6 +22,7 @@ const Schema = yup.object().shape({
   ngayKhamBenh: yup.date(),
   dieuTri: yup.string().required("Trường bắt buộc"),
   nhomThuoc: yup.array().required("Trường bắt buộc"),
+  nhomThuocTS: yup.array().required("Trường bắt buộc"),
   hba1cLucDau: yup.string().required("Trường bắt buộc"),
   tienSuBenh: yup.array().required("Trường bắt buộc"),
   Hb: yup.number().required("Trường bắt buộc"),
@@ -42,7 +43,9 @@ const Schema = yup.object().shape({
   khamMat: yup.string().required("Trường bắt buộc"),
   ghiChu: yup.string(),
   thuocHaAp: yup.array().required("Trường bắt buộc"),
+  thuocHaApTS: yup.array().required("Trường bắt buộc"),
   haMoMau: yup.array().required("Trường bắt buộc"),
+  haMoMauTS: yup.array().required("Trường bắt buộc"),
   chieuCao: yup.number().required("Trường bắt buộc"),
   canNang: yup.number().required("Trường bắt buộc"),
   BMI: yup.number().required("Trường bắt buộc"),
@@ -50,9 +53,15 @@ const Schema = yup.object().shape({
   HATTr: yup.string().required("Trường bắt buộc"),
   nuoctieu_albumin: yup.string().required("Trường bắt buộc"),
   maBenhNhan: yup.string().required("Trường bắt buộc"),
+  dieuTriDTD: yup.string().required("Trường bắt buộc"),
+  dieuTriTHA: yup.string().required("Trường bắt buộc"),
+  thoigianM1: yup.number().required("Trường bắt buộc"),
+  thoigianM2: yup.number().required("Trường bắt buộc"),
 });
 
 function Form() {
+  const [inputDate, setInputDate] = useState('');
+  const [inputTSBenh, setInputTSBenh] = useState([]);
   const {
     control,
     formState: { errors },
@@ -70,6 +79,7 @@ function Form() {
     ).toLocaleDateString("vi");
     newData.nhomThuoc = data.nhomThuoc.map(e => e.value);
     newData.tienSuBenh = data.tienSuBenh.map(e => e.value);
+    newData.soNamDTD = calculateYearFromDate(inputDate);
     console.log(newData, "a");
 
     fetch("https://api-108.aiotlab-annotation.com/notes", {
@@ -83,15 +93,16 @@ function Form() {
     })
       .then(() => {
         toast.success("Gửi dữ liệu thành công");
-        const fieldsToReset = ["ten", "tuoi", "gioiTinh", "trinDoHocVan", "dungSmartPhone",
+        const fieldsToReset = ["maBenhNhan", "ten", "tuoi", "gioiTinh", "trinDoHocVan", "dungSmartPhone",
           "diaChi", "tanSuatKham", "tienSuBoMe", "tienSuAnhChi", "thoiGianPhatHien",
-          "ngayKhamBenh", "dieuTri", "nhomThuoc", "hba1cLucDau", "tienSuBenh",
+          "ngayKhamBenh", "dieuTri", "nhomThuoc", "nhomThuocTS", "hba1cLucDau", "tienSuBenh",
           "Hb", "HbA", "Hema", "Glu", "Ure", "Creatinin", "eGFR", "Cholesterol", "LDLC",
-          "HDLC", "Trigly", "Na", "K", "Ca", "sieuAm", "khamMat", "ghiChu", "thuocHaAp", "haMoMau",
-          "chieuCao", "canNang", "BMI", "HATT", "HATTr", "nuoctieu_albumin",
+          "HDLC", "Trigly", "Na", "K", "Ca", "sieuAm", "khamMat", "ghiChu", "thuocHaAp", "thuocHaApTS", "haMoMau", "haMoMauTS",
+          "chieuCao", "canNang", "BMI", "HATT", "HATTr", "nuoctieu_albumin", "dieuTriDTD", "dieuTriTHA", "thoigianM1", "thoigianM2",
         ];
         fieldsToReset.forEach(fieldName => {
           setValue(fieldName, "");
+          setInputDate("");
         });
       })
       .catch(() => {
@@ -99,12 +110,17 @@ function Form() {
       });
   };
 
+  function calculateYearFromDate(date) {
+    const now = new Date();
+    const year = now.getFullYear() - date.getFullYear()
+    return !year ? now.getMonth() - date.getMonth() + 1 + ' tháng' : year + ' năm';
+  }
   return (
     <div className="mx-10">
       <div className="font-bold text-left mt-5">I. Thông tin hành chính</div>
       <div className="bg-gray-50 rounded shadow-md px-2 py-4 mt-2">
         <div className="w-1/3">
-        <Controller
+          <Controller
             control={control}
             name="maBenhNhan"
             render={({ field }) => (
@@ -313,7 +329,10 @@ function Form() {
             render={({ field }) => (
               <DatePickerField
                 selected={field.value}
-                onChange={date => field.onChange(date)}
+                onChange={(date) => {
+                  field.onChange(date);
+                  setInputDate(date);
+                }}
                 label={"Phát hiện ĐTĐ từ bao giờ"}
                 hasTimeInput={false}
                 required={true}
@@ -354,7 +373,11 @@ function Form() {
             />
           </div>
         </div>
-
+        {inputDate &&
+          <div className="text-left font-medium mb-4">
+            Thời gian mắc đái tháo đường: {calculateYearFromDate(inputDate)}
+          </div>
+        }
         <Controller
           control={control}
           name="tienSuBenh"
@@ -365,7 +388,7 @@ function Form() {
                 "Bàn chân",
                 "Mắt",
                 "Mạch vành",
-                "Bệnh động mạch chi dưới",
+                "Động mạch chi dưới",
                 "Thận",
                 "Thần kinh",
                 "Chưa bao giờ",
@@ -375,8 +398,9 @@ function Form() {
               }))}
               placeholder=""
               value={field.value}
-              onChange={newValue => {
+              onChange={(newValue) => {
                 field.onChange(newValue);
+                setInputTSBenh(newValue.filter((item) => item.value !== "Chưa bao giờ"));
               }}
               helperText={errors?.tienSuBenh?.message}
               required={true}
@@ -384,6 +408,170 @@ function Form() {
             />
           )}
         />
+        {inputTSBenh && <div className="grid gap-4 grid-cols-4">
+          {inputTSBenh.map(item => 
+            <div className="text-left flex mb-2 my-auto items-center">
+              <div className="w-11/12">Biến chứng {item.value} (năm)</div>
+              <input className="input-2" type="" name={`${item.value}Year`} />
+            </div>
+          )}
+          </div>
+        }
+        <div className="flex">
+          <div className="w-2/3 my-auto">
+            <Controller
+              control={control}
+              name="dieuTriDTD"
+              render={({ field }) => (
+                <RadioGroup
+                  name="dieuTriDTD"
+                  options={["Thường xuyên", "Không thường xuyên", "Không điều trị"]}
+                  value={field.value}
+                  onChange={e => {
+                    field.onChange(e);
+                  }}
+                  label="Điều trị đái tháo đường"
+                  required={true}
+                  helperText={errors?.dieuTriDTD?.message}
+                />
+              )}
+            />
+          </div>
+          <div className="w-1/3 my-auto">
+            <Controller
+              control={control}
+              name="thoigianM1"
+              render={({ field }) => (
+                <TextField
+                  label={"Thời gian mắc sau khi bị ĐTĐ (năm)"}
+                  value={field.value}
+                  helperText={errors?.thoigianM1?.message}
+                  onChange={e => field.onChange(e.target.value)}
+                  type="number"
+                  required={true}
+                />
+              )}
+            />
+          </div>
+        </div>
+        <div className="flex">
+          <div className="w-2/3">
+            <Controller
+              control={control}
+              name="dieuTriTHA"
+              render={({ field }) => (
+                <RadioGroup
+                  name="dieuTriTHA"
+                  options={["Thường xuyên", "Không thường xuyên", "Không điều trị"]}
+                  value={field.value}
+                  onChange={e => {
+                    field.onChange(e);
+                  }}
+                  label="Điều trị tăng huyết áp"
+                  required={true}
+                  helperText={errors?.dieuTriTHA?.message}
+                />
+              )}
+            />
+          </div>
+          <div className="w-1/3">
+            <Controller
+              control={control}
+              name="thoigianM2"
+              render={({ field }) => (
+                <TextField
+                  label={"Thời gian mắc sau khi bị THA (năm)"}
+                  value={field.value}
+                  helperText={errors?.thoigianM2?.message}
+                  onChange={e => field.onChange(e.target.value)}
+                  type="number"
+                  required={true}
+                />
+              )}
+            />
+          </div>
+        </div>
+        <div className="font-bold text-left mt-5">Tiền sử dùng thuốc:</div>
+        <div>
+          <Controller
+            control={control}
+            name="nhomThuocTS"
+            render={({ field }) => (
+              <CheckboxGroup
+                title={"Nhóm thuốc hạ đường máu"}
+                options={[
+                  "Insulin",
+                  "SU",
+                  "Metformin",
+                  "GLP1",
+                  "ức chế SGLT2",
+                  "Acarbose",
+                  "ức chế DPP4",
+                ].map(e => ({
+                  label: e,
+                  value: e,
+                }))}
+                placeholder=""
+                value={field.value}
+                onChange={newValue => {
+                  field.onChange(newValue);
+                }}
+                helperText={errors?.nhomThuocTS?.message}
+                required={true}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="thuocHaApTS"
+            render={({ field }) => (
+              <CheckboxGroup
+                title={"Nhóm thuốc hạ áp:"}
+                options={[
+                  "Chẹn calci",
+                  "Chẹn beta",
+                  "UC thụ thể",
+                  "UC men chuyển",
+                  "Nhóm khác",
+                ].map(e => ({
+                  label: e,
+                  value: e,
+                }))}
+                placeholder=""
+                value={field.value}
+                onChange={newValue => {
+                  field.onChange(newValue);
+                }}
+                helperText={errors?.thuocHaApTS?.message}
+                required={true}
+                isMulti={true}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="haMoMauTS"
+            render={({ field }) => (
+              <CheckboxGroup
+                title={"Nhóm thuốc hạ mỡ máu:"}
+                options={["Statin", "Fibrat"].map(e => ({
+                  label: e,
+                  value: e,
+                }))}
+                placeholder=""
+                value={field.value}
+                onChange={newValue => {
+                  field.onChange(newValue);
+                }}
+                helperText={errors?.haMoMauTS?.message}
+                required={true}
+                isMulti={true}
+              />
+            )}
+          />
+        </div>
+
       </div>
 
       <div className="font-bold text-left mt-5">III. Thông tin thu thập</div>
