@@ -19,7 +19,7 @@ input:focus {
 input {
   border-radius: 8px;
   padding: 8px 16px;
-  width: 100%;
+  /* width: 100%; */
   border: 1px solid #d1d5db;
 }
 
@@ -45,4 +45,8 @@ input {
 :disabled {
   background-color: #f3f4f6;
   color: #6b7280
+}
+
+.input-2 {
+  max-width: 100px !important;
 }

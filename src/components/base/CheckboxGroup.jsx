@@ -14,14 +14,16 @@ const CheckboxGroup = ({
     disabled,
 }) => {
     const checkedValues = Array.isArray(value) ? value : [];
-
     const handleCheckboxChange = (checked, optionValue) => {
+        console.log(optionValue);
         if (checked) {
-            onChange([...checkedValues, optionValue]);
+            if(optionValue.value === "Chưa bao giờ" || checkedValues[0]?.value === 'Chưa bao giờ')
+                onChange([optionValue])
+            else
+                onChange([...checkedValues, optionValue]);
         } else {
-            onChange(checkedValues.filter((item) => item !== optionValue));
+            onChange(checkedValues.filter((item) => item.value !== optionValue.value));
         }
-        console.log(checkedValues);
     };
     return (
         <div className='my-1'>
