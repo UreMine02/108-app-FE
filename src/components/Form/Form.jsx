@@ -76,6 +76,7 @@ function Form() {
         setValue(fieldName, "");
         setInputDate("");
       });
+      setInputTSBenh([]);
     })
     .catch(() => {
       toast.error("Gửi dữ liệu thất bại");
