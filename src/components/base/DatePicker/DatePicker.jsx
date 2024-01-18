@@ -27,23 +27,30 @@ function DatePickerField({
 }) {
 	return (
 		<div className='my-1'>
-			<div className='flex'>
-				<span className={clsx("m-auto text-left mr-4 ")}>
+			<div className='sm:flex'>
+				<div className={clsx("text-left my-auto mr-4 ")}>
 					{label}
 					{required && <span className='ml-1 text-red-600'>*</span>}
-				</span>
-				<DatePicker
-					placeholderText={placeholder}
-					onChange={onChange}
-					selected={selected}
-					timeInputLabel='Thời gian:'
-					dateFormat={hasTimeInput ? "dd/MM/yyyy h:mm aa" : "dd/MM/yyyy"}
-					showTimeInput={hasTimeInput}
-					locale='vi'
-					minDate={minDate}
-					maxDate={maxDate}
-					disabled={disabled}
-				/>
+					{helperText && (
+						<div className="text-red-600 w-full bg-red-50">
+							{helperText}
+						</div>
+					)}
+				</div>
+				<div className="text-left">
+					<DatePicker
+						placeholderText={placeholder}
+						onChange={onChange}
+						selected={selected}
+						timeInputLabel='Thời gian:'
+						dateFormat={hasTimeInput ? "dd/MM/yyyy h:mm aa" : "dd/MM/yyyy"}
+						showTimeInput={hasTimeInput}
+						locale='vi'
+						minDate={minDate}
+						maxDate={maxDate}
+						disabled={disabled}
+					/>
+				</div>
 			</div>
 			{/* {helperText && (
 				<HelperText className='ml-4' style={{ paddingLeft: label ? width : 0 }}>

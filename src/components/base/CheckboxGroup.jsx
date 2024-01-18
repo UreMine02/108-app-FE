@@ -27,14 +27,14 @@ const CheckboxGroup = ({
     };
     return (
         <div className='my-1'>
-            <div className='flex'>
-                <span className={clsx("m-auto text-left mr-4", `w-[300px]`)}>
+            <div className='xl:flex text-left'>
+                <div className={clsx("text-left mr-4 min-w-[210px]")}>
                     {title}
                     {required && <span className='ml-1 text-red-600'>*</span>}
-                </span>
-                <div className="checkbox-group flex w-full">
+                </div>
+                <div className="checkbox-group grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2 sm:gap-4 lg:flex">
                     {options.map((option, index) => (
-                        <div className="mr-3 flex min-w-[120px]">
+                        <div className="flex text-left min-w-[100px]">
                             <input
                                 className={`w-5 h-5`}
                                 type="checkbox"
