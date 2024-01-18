@@ -16,13 +16,18 @@ const RadioGroup = ({
 	width = "150px",
 }) => {
 	return (
-		<div className='my-1 w-full'>
-			<div className='flex'>
-				<span className={clsx("m-auto text-left mr-4 ")}>
+		<div className='my-1 w-full md:flex md:items-center'>
+			<div className='md:flex'>
+				<div className={clsx("m-auto text-left mr-4 ")}>
 					{label}
 					{required && <span className='ml-1 text-red-600'>*</span>}
-				</span>
-				<div className='flex-1 flex gap-4'>
+					<div>
+						{helperText && (
+							<div className="text-red-600 w-full bg-red-50">{helperText}</div>	
+						)}
+					</div>
+				</div>
+				<div className='grid grid-cols-2 sm:grid-cols-3 lg:flex md:grid-cols-4 gap-2 sm:gap-4 text-left'>
 					{options.map((opt) => (
 						<Radio
 							key={opt}
@@ -34,11 +39,6 @@ const RadioGroup = ({
 					))}
 				</div>
 			</div>
-			{/* {helperText && (
-				<HelperText className='ml-4' style={{ paddingLeft: label ? width : 0 }}>
-					{helperText}
-				</HelperText>
-			)} */}
 		</div>
 	);
 };
