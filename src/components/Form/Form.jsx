@@ -18,17 +18,7 @@ const Schema = yup.object().shape({
   tanSuatKham: yup.string().required("Trường bắt buộc"),
   tienSuBoMe: yup.string().required("Trường bắt buộc"),
   tienSuAnhChi: yup.string().required("Trường bắt buộc"),
-  sieuAm: yup.string().required("Trường bắt buộc"),
-  khamMat: yup.string().required("Trường bắt buộc"),
-  chieuCao: yup.number().required("Trường bắt buộc"),
-  canNang: yup.number().required("Trường bắt buộc"),
-  BMI: yup.number().required("Trường bắt buộc"),
-  HATT: yup.string().required("Trường bắt buộc"),
-  HATTr: yup.string().required("Trường bắt buộc"),
-  nuoctieu_albumin: yup.string().required("Trường bắt buộc"),
   maBenhNhan: yup.string().required("Trường bắt buộc"),
-  dieuTriDTD: yup.string().required("Trường bắt buộc"),
-  dieuTriTHA: yup.string().required("Trường bắt buộc"),
   thoiGianPhatHien: yup.string().required("Trường bắt buộc"),
   ngayKhamBenh: yup.string().required("Trường bắt buộc"),
 });
@@ -331,7 +321,7 @@ function Form() {
                   field.onChange(e);
                 }}
                 label="Điều trị đái tháo đường"
-                required={true}
+                required={false}
                 helperText={errors?.dieuTriDTD?.message}
               />
             )}
@@ -358,7 +348,7 @@ function Form() {
                   field.onChange(e);
                 }}
                 label="Điều trị tăng huyết áp"
-                required={true}
+                required={false}
                 helperText={errors?.dieuTriTHA?.message}
               />
             )}
@@ -441,7 +431,7 @@ function Form() {
                 helperText={errors?.chieuCao?.message}
                 onChange={e => field.onChange(e.target.value)}
                 type="number"
-                required={true}
+                required={false}
               />
             )}
           />
@@ -452,7 +442,7 @@ function Form() {
                 helperText={errors?.canNang?.message}
                 onChange={e => field.onChange(e.target.value)}
                 type="number"
-                required={true}
+                required={false}
               />
             )}
           />
@@ -463,7 +453,7 @@ function Form() {
                 helperText={errors?.BMI?.message}
                 onChange={e => field.onChange(e.target.value)}
                 type="number"
-                required={true}
+                required={false}
               />
             )}
           />
@@ -474,7 +464,7 @@ function Form() {
                 onChange={e => field.onChange(e.target.value)}
                 type="number"
                 helperText={errors?.HATT?.message}
-                required={true}
+                required={false}
               />
             )}
           />
@@ -484,7 +474,7 @@ function Form() {
                 value={field.value}
                 onChange={e => field.onChange(e.target.value)}
                 type="number"
-                required={true}
+                required={field}
                 helperText={errors?.HATTr?.message}
               />
             )}
@@ -714,7 +704,7 @@ function Form() {
                 }}
                 label="Kích thước thận"
                 helperText={errors?.sieuAm?.message}
-                required={true}
+                required={false}
               />
             )}
           />
@@ -728,7 +718,7 @@ function Form() {
                 }}
                 label="Khám mắt đánh giá"
                 helperText={errors?.khamMat?.message}
-                required={true}
+                required={false}
               />
             )}
           />
@@ -741,7 +731,7 @@ function Form() {
                   field.onChange(e);
                 }}
                 helperText={errors?.nuoctieu_albumin?.message}
-                required={true}
+                required={false}
               />
             )}
           />
