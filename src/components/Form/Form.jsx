@@ -43,6 +43,11 @@ function Form() {
     ).toLocaleDateString("vi");
     newData.nhomThuoc = data.nhomThuoc?.map(e => e.value);
     newData.tienSuBenh = data.tienSuBenh?.map(e => e.value);
+    newData.nhomThuocTS = data.nhomThuocTS?.map(e => e.value);
+    newData.thuocHaApTS = data.thuocHaApTS?.map(e => e.value);
+    newData.haMoMauTS = data.haMoMauTS?.map(e => e.value);
+    newData.thuocHaAp = data.thuocHaAp?.map(e => e.value);
+    newData.haMoMau = data.haMoMau?.map(e => e.value);
     newData.soNamDTD = calculateYearFromDate(inputDate);
     console.log(newData, "a");
 
