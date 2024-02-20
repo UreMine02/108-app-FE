@@ -5,6 +5,8 @@ import Login from "./components/Admin/Login";
 import NotFound from "./components/NotFound";
 import Register from "./components/Admin/Register";
 import Dashboard from "./components/Admin/Dashboard";
+import List from "./components/Admin/notes/List";
+import Detail from "./components/Admin/notes/Detail";
 
 function App() {
 	const AdminRoute = ({ element }) => {
@@ -16,8 +18,9 @@ function App() {
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/admin" element={<AdminRoute element={<Dashboard />} />}>
-				<Route path="list" element={<Dashboard />} />
+				<Route path="list" element={<List />} />
 			</Route>
+			<Route path="/detail/:id" element={<AdminRoute element={<Detail />} />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/signup" element={<Register />} />
 			<Route path="*" element={<NotFound />} />

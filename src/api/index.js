@@ -9,7 +9,7 @@ export async function login(username, password) {
       })
       return {
         success: true,
-        data: res.data.data,
+        data: res.data,
       }
     } catch (error) {
       return {
@@ -27,7 +27,7 @@ export async function register(email, password, username) {
       })
       return {
         success: true,
-        data: res.data.data,
+        data: res.data,
       }
     } catch (error) {
       return {
@@ -41,7 +41,7 @@ export async function getAllNotes() {
       const res = await axiosInstance.get(`/notes`)
       return {
         success: true,
-        data: res.data.data,
+        data: res.data,
       }
     } catch (error) {
       return {
@@ -56,7 +56,7 @@ export async function getNoteById(id) {
       const res = await axiosInstance.get(`/notes/${id}`)
       return {
         success: true,
-        data: res.data.data,
+        data: res.data,
       }
     } catch (error) {
       return {
@@ -74,7 +74,7 @@ export async function updateNote(id, title, content) {
       })
       return {
         success: true,
-        data: res.data.data,
+        data: res.data,
       }
     } catch (error) {
       return {
@@ -89,7 +89,7 @@ export async function deleteNote(id) {
       const res = await axiosInstance.delete(`/notes/${id}`)
       return {
         success: true,
-        data: res.data.data,
+        data: res.data,
       }
     } catch (error) {
       return {
